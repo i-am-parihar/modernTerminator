@@ -510,14 +510,14 @@ const operators = function (isInitialSetup) {
     const letter = ScratchBlocks.ScratchMsgs.translate('OPERATORS_LETTEROF_APPLE', 'a');
     return `
     <category name="%{BKY_CATEGORY_OPERATORS}" id="operators" colour="#40BF4A" secondaryColour="#389438">
-        <block type="operator_square">
+      
+    <block type="operator_square">
          <value name="NUM">
           <shadow type="math_number">
             <field name="NUM"/>
           </shadow>
          </value>
         </block>  
-
         <block type="operator_squareroot">
         <value name="NUM">
          <shadow type="math_number">
@@ -525,6 +525,7 @@ const operators = function (isInitialSetup) {
          </shadow>
         </value>
        </block> 
+
 
         <block type="operator_add">
             <value name="NUM1">

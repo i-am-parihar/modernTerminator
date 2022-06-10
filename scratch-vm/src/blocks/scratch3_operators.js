@@ -39,11 +39,11 @@ class Scratch3OperatorsBlocks {
         };
     }
 
-    // square  logic
+    // square operator  logic
     square (args) {
         return Cast.toNumber(args.NUM) * Cast.toNumber(args.NUM);
     }
-    // squareRoot Logic
+    // squareRoot operator Logic
     squareroot (args) {
         return Cast.toNumber(args.NUM)**(1/2);
     }

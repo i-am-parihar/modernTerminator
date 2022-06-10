@@ -27,6 +27,7 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
+// operator square
 Blockly.Blocks['operator_square'] = {
   /**
    * Block for square number.
@@ -46,6 +47,8 @@ Blockly.Blocks['operator_square'] = {
     });
   }
 };
+
+// operator squareroot
 Blockly.Blocks['operator_squareroot'] = {
   /**
    * Block for squareRoot number.
