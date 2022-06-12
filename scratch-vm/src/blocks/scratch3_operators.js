@@ -17,7 +17,7 @@ class Scratch3OperatorsBlocks {
     getPrimitives () {
         return {
             operator_square: this.square,
-            operator_squareroot: this.squareroot,
+            operator_square_root: this.squareroot,
             operator_add: this.add,
             operator_subtract: this.subtract,
             operator_multiply: this.multiply,
@@ -38,19 +38,19 @@ class Scratch3OperatorsBlocks {
             operator_mathop: this.mathop
         };
     }
-
-    // square operator  logic
     square (args) {
         return Cast.toNumber(args.NUM) * Cast.toNumber(args.NUM);
     }
-    // squareRoot operator Logic
+
     squareroot (args) {
-        return Cast.toNumber(args.NUM)**(1/2);
+        if (Cast.toNumber(args.NUM) < 0) {
+            return `${Math.sqrt(-1 * Cast.toNumber(args.NUM)).toFixed(5)}i`;
+        }
+        return Math.sqrt(Cast.toNumber(args.NUM)).toFixed(5);
     }
 
-    
     add (args) {
-        return Cast.toNumber(args.NUM1) + Cast.toNumber(args.NUM2);
+        return Cast.toNumber(args.NUM1) * Cast.toNumber(args.NUM2);
     }
 
     subtract (args) {

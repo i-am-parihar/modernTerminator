@@ -181,8 +181,8 @@ Blockly.Msg.MOTION_YSCROLL = 'y scroll';
 Blockly.Msg.MOTION_STAGE_SELECTED = 'Stage selected: no motion blocks';
 
 // Operators blocks
-Blockly.Msg.OPERATORS_SQUARE = 'square' ;    //square operator message
-Blockly.Msg.OPERATORS_SQUAREROOT = 'squareroot' ;    //squareRoot operator message
+Blockly.Msg.OPERATORS_SQUARE = 'square of %1';   //message for square
+Blockly.Msg.OPERATORS_SQUARE_ROOT = 'square root of %1';  //message for square_root
 Blockly.Msg.OPERATORS_ADD = '%1 + %2';
 Blockly.Msg.OPERATORS_SUBTRACT = '%1 - %2';
 Blockly.Msg.OPERATORS_MULTIPLY = '%1 * %2';

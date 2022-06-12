@@ -39,7 +39,7 @@ if sys.version_info[0] != 2:
   raise Exception("Blockly build only compatible with Python 2.x.\n"
                   "You are using: " + sys.version)
 
-import errno, glob, httplib, json, os, re, subprocess, threading, urllib
+import errno, glob, httplib, json, os, re, subprocess, threading, urllib, platform
 
 REMOTE_COMPILER = "remote"
 
@@ -56,10 +56,8 @@ CLOSURE_COMPILER_NPM = ("google-closure-compiler.cmd" if os.name == "nt" else "g
 def import_path(fullpath):
   """Import a file with full path specification.
   Allows one to import from any directory, something __import__ does not do.
-
   Args:
       fullpath:  Path and filename of import.
-
   Returns:
       An imported module.
   """
@@ -101,12 +99,10 @@ class Gen_uncompressed(threading.Thread):
     f.write(self.format_js("""
 var isNodeJS = !!(typeof module !== 'undefined' && module.exports &&
                   typeof window === 'undefined');
-
 if (isNodeJS) {
   var window = {};
   require('{closure_library}');
 }
-
 window.BLOCKLY_DIR = (function() {
   if (!isNodeJS) {
     // Find name of current directory.
@@ -122,7 +118,6 @@ window.BLOCKLY_DIR = (function() {
   }
   return '';
 })();
-
 window.BLOCKLY_BOOT = function() {
   var dir = '';
   if (isNodeJS) {
@@ -170,7 +165,6 @@ window.BLOCKLY_BOOT = function() {
 delete this.BLOCKLY_DIR;
 delete this.BLOCKLY_BOOT;
 };
-
 if (isNodeJS) {
   window.BLOCKLY_BOOT();
   module.exports = Blockly;
@@ -324,11 +318,26 @@ class Gen_compressed(threading.Thread):
 
       # Build the final args array by prepending CLOSURE_COMPILER_NPM to
       # dash_args and dropping any falsy members
-      args = []
-      for group in [[CLOSURE_COMPILER_NPM], dash_args]:
-        args.extend(filter(lambda item: item, group))
+      if(platform.system() == "Windows"):
+        arg_data = " ".join(dash_args)
+        arg_data_list = list(arg_data)
+        n_pos = [i for i, x in enumerate(arg_data_list) if x == "\\"]
+        for x in range(len(n_pos)):
+          arg_data_list.insert(n_pos[len(n_pos) - x - 1], "\\")
+        arg_data = "".join(arg_data_list)
 
-      proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        arg_file_name = target_filename + ".config"
+        arg_file = open(arg_file_name, "w")
+        arg_file.write(arg_data)
+        arg_file.close()
+
+        args = [closure_compiler, "--flagfile", arg_file_name]
+        proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+      else:
+        args = []
+        for group in [[CLOSURE_COMPILER_NPM], dash_args]:
+          args.extend(filter(lambda item: item, group))
+        proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
       (stdout, stderr) = proc.communicate()
 
       # Build the JSON response.
@@ -432,18 +441,13 @@ class Gen_compressed(threading.Thread):
       # Trim down Google's (and only Google's) Apache licences.
       # The Closure Compiler preserves these.
       LICENSE = re.compile("""/\\*
-
  [\w ]+
-
  Copyright \\d+ Google Inc.
  https://developers.google.com/blockly/
-
  Licensed under the Apache License, Version 2.0 \(the "License"\);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
    http://www.apache.org/licenses/LICENSE-2.0
-
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -477,7 +481,6 @@ class Gen_compressed(threading.Thread):
 
 class Gen_langfiles(threading.Thread):
   """Generate JavaScript file for each natural language supported.
-
   Runs in a separate thread.
   """
 

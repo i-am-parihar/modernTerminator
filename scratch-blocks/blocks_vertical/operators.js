@@ -27,10 +27,9 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
-// operator square
 Blockly.Blocks['operator_square'] = {
   /**
-   * Block for square number.
+   * Block for square a number.
    * @this Blockly.Block
    */
   init: function() {
@@ -47,16 +46,14 @@ Blockly.Blocks['operator_square'] = {
     });
   }
 };
-
-// operator squareroot
-Blockly.Blocks['operator_squareroot'] = {
+Blockly.Blocks['operator_square_root'] = {
   /**
-   * Block for squareRoot number.
+   * Block for square_root a number.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_SQUAREROOT,
+      "message0": Blockly.Msg.OPERATORS_SQUARE_ROOT,
       "args0": [
         {
           "type": "input_value",
@@ -68,7 +65,6 @@ Blockly.Blocks['operator_squareroot'] = {
     });
   }
 };
-
 
 Blockly.Blocks['operator_add'] = {
   /**
