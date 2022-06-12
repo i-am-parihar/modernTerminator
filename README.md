@@ -42,7 +42,8 @@ http://localhost:8601
 
 ## Allow your changes
 ### scratch-vm: npm run watch.
-### scratch-blocks: npm run prepublish command to rebuild scratch-blocks.(Make sure you run the command from the scratch-blocks directory!) 
+### scratch-blocks: npm run prepublish command to rebuild scratch-blocks.
+## (Make sure you run the command from the scratch-blocks directory at Every time you make a change to the code in scratch-blocks!) 
 
 ## Reference
 ### https://github.com/LLK/
