@@ -27,6 +27,7 @@ goog.require('Blockly.Colours');
 goog.require('Blockly.constants');
 goog.require('Blockly.ScratchBlocks.VerticalExtensions');
 
+// Operatore For Square
 Blockly.Blocks['operator_square'] = {
   /**
    * Block for square a number.
@@ -46,14 +47,16 @@ Blockly.Blocks['operator_square'] = {
     });
   }
 };
-Blockly.Blocks['operator_square_root'] = {
+
+// Operatore For SquareRoot
+Blockly.Blocks['operator_squareroot'] = {
   /**
    * Block for square_root a number.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.OPERATORS_SQUARE_ROOT,
+      "message0": Blockly.Msg.OPERATORS_SQUAREROOT,
       "args0": [
         {
           "type": "input_value",
